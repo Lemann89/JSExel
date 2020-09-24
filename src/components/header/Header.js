@@ -1,6 +1,17 @@
 import { AppComponent } from "../../core/AppComponent";
 
 export class Header extends AppComponent {
+  constructor($root) {
+    super($root, {
+      name: "Header",
+      listeners: ["input"],
+    });
+  }
+
+  onInput(e) {
+    console.log(e.target.value);
+  }
+
   static className = "excel__header";
 
   toHTML() {
