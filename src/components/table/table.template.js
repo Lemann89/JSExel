@@ -3,18 +3,26 @@ const CODES = {
   Z: 90,
 };
 
-const createCell = () => {
-  return `<div class="cell" contenteditable></div>`;
+const createCell = (_, col) => {
+  return `<div class="cell" contenteditable data-col="${col}"></div>`;
 };
 
-const createColumn = (col) => {
-  return `<div class="column">${col}</div>`;
+const createColumn = (col, idx) => {
+  return `
+  <div class="column" data-type="resizable" data-col="${idx}">
+      ${col}
+    <div class="col-resize" data-resize="col"></div>
+  </div>`;
 };
 
-const createRow = (count, content) => {
+const createRow = (idx, content) => {
+  const resizer = idx ? '<div class="row-resize" data-resize="row"></div>' : "";
   return ` 
-    <div class="row">
-        <div class="row-info">${count}</div>
+    <div class="row" data-type="resizable">
+        <div class="row-info">
+          ${idx ? idx : ""}
+          ${resizer}
+        </div>
         <div class="row-data"> ${content} </div>
     </div>
     `;
@@ -34,11 +42,10 @@ export function createTable(rowsCount = 15) {
     .map(createColumn)
     .join("");
 
-  const cels = new Array(colsCount).fill(createCell()).join("");
-
   rows.push(createRow("", cols));
 
   for (let i = 0; i < rowsCount; i++) {
+    const cels = new Array(colsCount).fill("").map(createCell).join("");
     rows.push(createRow(i + 1, cels));
   }
 
