@@ -1,10 +1,11 @@
 import { AppComponent } from "../../core/AppComponent";
 
 export class Toolbar extends AppComponent {
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
-      name: Toolbar,
+      name: "Toolbar",
       listeners: ["click"],
+      ...options,
     });
   }
 

@@ -1,10 +1,11 @@
 import { AppComponent } from "../../core/AppComponent";
 
 export class Header extends AppComponent {
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: "Header",
       listeners: ["input"],
+      ...options,
     });
   }
 
