@@ -8,8 +8,13 @@ export function resizeHandler($root, event) {
 
   $resizer.css({
     opacity: 1,
-    bottom: `${-$root.$el.clientHeight}px`,
   });
+
+  if (type === "col") {
+    $resizer.css({
+      bottom: `${-$root.$el.clientHeight}px`,
+    });
+  }
 
   document.onmousemove = (event) => {
     if (type === "col") {
@@ -19,6 +24,7 @@ export function resizeHandler($root, event) {
     } else {
       const deltaY = event.pageY - cords.bottom;
       valueY = cords.height + deltaY;
+      console.log(deltaY);
       $resizer.css({
         bottom: `${-deltaY}px`,
         right: `${-$root.$el.clientWidth}px`,
